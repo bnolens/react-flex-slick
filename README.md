@@ -70,6 +70,7 @@ To run the examples:
   because we dont support them in first place.
 - dots, dotClass - works almost as expected. Instead of dotClass on slider give it as
   className in the `Dots` component
+- ttb - Top to bottom transitions for vertical sliding
 
 **Remaining**: slidesToShow, slidesToScroll, accessibility, rtl, pauseOnHover,
 pauseOnDotsHover, responsive, swipeToSlide, slide, variableWidth, centerMode,
