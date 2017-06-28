@@ -84,7 +84,7 @@ class Track extends Component {
   computeTrackStyle() {
     const { vertical, currentSlide, infinite,
             translateXOffset, translateYOffset,
-            transitionSpeed, transitionTimingFn } = this.props;
+            transitionSpeed, transitionTimingFn, ttb } = this.props;
     const slideCount = Children.count(this.props.children);
     const totalCount = slideCount + (infinite === true ? 2 : 0);
     const { previousSlide } = this.state;
@@ -94,14 +94,17 @@ class Track extends Component {
     const trackHeight = vertical ? `${100 * totalCount}%` : '100%';
     const translate = (100 * (currentSlide + preSlideCount)) / totalCount;
     const translateX = vertical === false ? translate - translateXOffset : 0;
-    const translateY = vertical === true ? translate - translateYOffset : 0;
+    let translateY = vertical === true ? translate - translateYOffset : 0;
+    if (ttb) {
+      translateY = vertical === true ? (100 - translate - translateYOffset) : 0;
+    }
     const trackTransform = `translate3d(${-translateX}%, ${-translateY}%, 0)`;
     const trackTransition =
       infinite === true && ((previousSlide === -1 && (currentSlide === slideCount - 1)) ||
       ((previousSlide === slideCount) && currentSlide === 0)) ||
       (translateXOffset !== 0 || translateYOffset !== 0) ? '' :
       `all ${transitionSpeed}ms ${transitionTimingFn}`;
-    const flexDirection = vertical ? 'column' : 'row';
+    const flexDirection = vertical ? ttb ? 'column-reverse' : 'column' : 'row';
 
     const trackStyle = {
       width: trackWidth,

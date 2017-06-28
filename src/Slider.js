@@ -38,7 +38,8 @@ class Slider extends Component {
     touchThreshold: 0.2,
     touchMove: true,
     autoPlay: false,
-    autoPlaySpeed: 3000
+    autoPlaySpeed: 3000,
+    ttb: false
   }
 
   /**
@@ -188,6 +189,7 @@ class Slider extends Component {
     touchObject.currY = e.touches !== undefined ? e.touches[0].pageY : e.clientY;
     touchObject.currX = e.touches !== undefined ? e.touches[0].pageX : e.clientX;
 
+
     touchObject.swipeLength = swipeDistance(touchObject);
 
     const direction = swipeDirection(touchObject);
@@ -278,7 +280,7 @@ class Slider extends Component {
   }
 
   render() {
-    const { children, vertical, infinite, swipe, draggable } = this.props;
+    const { children, vertical, infinite, swipe, draggable, ltr } = this.props;
     const { transitionSpeed, transitionTimingFn } = this.props;
     const { beforeChange, afterChange } = this.props;
     const [ leftArrow, slides, rightArrow, customComponent ] = children;
@@ -315,6 +317,7 @@ class Slider extends Component {
       transitionSpeed,
       transitionTimingFn,
       vertical,
+      ttb,
       onMouseDown: ::this.handleSwipeStart,
       onMouseMove: this.state.swiping ? ::this.handleSwipeMove : null,
       onMouseUp: ::this.handleSwipeEnd,
